@@ -1,0 +1,29 @@
+name: CI Pipeline
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+        
+      - name: Show test logs
+        if: always()
+        run: |
+          echo "Printing test logs..."
+          cat test.log 2>/dev/null || echo "No log file found"
