@@ -1,0 +1,42 @@
+name: Upload build artifacts
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-test-artifact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+        
+      - name: Build project
+        run: npm run build
+        
+      - name: Upload build folder artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-build-folder
+          path: build/**
+
+      - name: Zip build folder
+        run: zip -r react-build.zip build/
+
+      - name: Upload zipped build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-build-zip
+          path: react-build.zip
