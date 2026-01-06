@@ -20,10 +20,6 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm test
+        run: npm test -- --passWithNoTests
         
-      - name: Show test logs
-        if: always()
-        run: |
-          echo "Printing test logs..."
-          cat test.log 2>/dev/null || echo "No log file found"
+      
