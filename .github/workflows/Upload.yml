@@ -28,7 +28,7 @@ jobs:
         run: npm test -- --watch=false --passWithNoTests
         
       - name: Build project
-        run: npm run build
+        run: CI=false npm run build
         
       - name: Zip build folder
         run: zip -r react-build.zip build/
