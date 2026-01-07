@@ -5,11 +5,9 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import {useNavigate, navigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import userImg from "../../assets/user.svg";
 
 function Header() {
   const [user, loading] = useAuthState(auth);
-const navigate = useNavigate();
   useEffect(() => {
     if(user) {
       navigate("/dashboard");
@@ -46,5 +44,6 @@ signOut(auth).then(() => {
     </div>
   )
 }
+
 
 export default Header;
